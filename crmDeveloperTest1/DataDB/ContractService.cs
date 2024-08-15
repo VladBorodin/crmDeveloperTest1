@@ -50,17 +50,17 @@ namespace crmDeveloperTest1.DataDB {
                 SELECT Id FROM Persons
                 WHERE DATEDIFF(YEAR, Birthday, GETDATE()) >= 60
             )
-            AND Status = 'Active';";
+            AND Status = 'Активен';";
             dataAccess.Execute(query);
         }
         // Метод для создания отчёта
         public IEnumerable<ReportDTO> GetPersonsWithActiveContractsInMoscow() {
             string query = @"
-            SELECT p.FirstName, p.LastName, p.SecondName, p.Email, p.Phone, p.Birthday
+            SELECT p.FirstName, p.LastName, p.SecondName, p.Email, p.PhoneNumber, p.Birthday
             FROM Contracts c
             JOIN Persons p ON c.MainPersonId = p.Id
             JOIN Companies cmp ON c.AgentId = cmp.Id
-            WHERE cmp.City = 'Москва' AND c.Status = 'Active';";
+            WHERE cmp.City = 'Москва' AND c.Status = 'Активен';";
             var result = dataAccess.Query<ReportDTO>(query);
             return result;
         }
